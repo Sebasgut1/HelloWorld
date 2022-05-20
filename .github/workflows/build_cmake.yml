@@ -60,6 +60,7 @@ jobs:
           execute_process(
             COMMAND chmod +x ninja
             COMMAND apt-get install openmpi-bin
+            COMMAND apt-get install libopenmpi-dev
             COMMAND chmod +x ${cmake_dir}/cmake
           )
         endif()
