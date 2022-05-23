@@ -7,7 +7,7 @@ find_package(MPI_REQUIRED)
 add_executable(main main.cpp)
 add_executable(Hello2 Hello2.cpp)
 
-target_link_libraries(main MPI::MPI_CXX)
+target_link_libraries(main ${MPI_C_LIBRARIES})
 
 install(TARGETS main)
 
