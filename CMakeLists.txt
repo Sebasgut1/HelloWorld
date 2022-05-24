@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(main)
 
+set(BOOST_ROOT C:/local/boost_1_71_0)
 find_package(Boost COMPONENTS filesystem atomic REQUIRED)
 
 add_executable(main main.cpp)
