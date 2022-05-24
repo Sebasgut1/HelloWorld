@@ -59,6 +59,7 @@ jobs:
         if (NOT "${{ runner.os }}" STREQUAL "Windows")
           execute_process(
             COMMAND chmod +x ninja
+            COMMAND apt-get install libboost-all-dev
             COMMAND chmod +x ${cmake_dir}/cmake
           )
         endif()
