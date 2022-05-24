@@ -2,23 +2,12 @@ cmake_minimum_required(VERSION 3.16)
 
 project(main)
 
-find_package(MPI REQUIRED)
-
-include_directories(${MPI_INCLUDE_PATH})
-target_link_libraries(main ${MPI_LIBRARIES})
+find_package(Boost COMPONENTS filesystem atomic REQUIRED)
 
 add_executable(main main.cpp)
 add_executable(Hello2 Hello2.cpp)
 
-if(MPI_COMPILE_FLAGS)
-    set_target_properties(main PROPERTIES
-            COMPILE_FLAGS "${MPI_COMPILE_FLAGS}")
-endif()
-
-if(MPI_LINK_FLAGS)
-    set_target_properties(main PROPERTIES
-            LINK_FLAGS "${MPI_LINK_FLAGS}")
-endif()
+target_link_libraries(main PRIVATE ${Boost_LIBRARIES})
 
 install(TARGETS main)
 

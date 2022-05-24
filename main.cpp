@@ -1,9 +1,8 @@
 #include <iostream>
-#include "mpi.h"
+#include <boost/filesystem/operations.hpp>
 
 int main()
 {
-    MPI_Init(NULL,NULL);
   std::cout << "Hello world\n";
-  MPI_Finalize();
+  std::cout << boost::filesystem::current_path().string();
 }
