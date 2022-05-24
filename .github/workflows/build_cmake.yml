@@ -68,6 +68,7 @@ jobs:
           echo gcc version before
           gcc --version
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt-get install libboost-all-dev
           sudo apt-get update
           sudo apt-get install ninja-build cmake gcc-9 g++-9
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
