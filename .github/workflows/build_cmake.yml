@@ -25,7 +25,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
+    - name: Install Boost
+        run: |
+          sudo apt-get install libboost-all-dev
     - name: Download Ninja and CMake
       shell: cmake -P {0}
       run: |
@@ -35,7 +37,6 @@ jobs:
         message(STATUS "Using host CMake version: ${CMAKE_VERSION}")
 
         if ("${{ runner.os }}" STREQUAL "Linux")
-          execute_process(apt-get install libboost-all-dev)
           set(ninja_suffix "linux.zip")
           set(cmake_suffix "linux-x86_64.tar.gz")
           set(cmake_dir "cmake-${cmake_version}-linux-x86_64/bin")
