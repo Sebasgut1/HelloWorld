@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(main)
 
+execute_process(COMMAND apt-get install libboost-all-dev)
 
 find_package(Boost COMPONENTS filesystem atomic REQUIRED)
 

@@ -25,9 +25,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install Boost
-        run: |
-          sudo apt-get install libboost-all-dev
     - name: Download Ninja and CMake
       shell: cmake -P {0}
       run: |
