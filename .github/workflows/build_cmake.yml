@@ -55,6 +55,7 @@ jobs:
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
+          sudo apt-get install libboost-all-dev
           sudo apt-get update
           sudo apt-get install ninja-build cmake
           ninja --version
@@ -95,7 +96,7 @@ jobs:
           sudo update-alternatives --install /usr/bin/cmake cmake /opt/cmake/bin/cmake 1 --force
           echo cmake version after
           cmake --version
-  
+
       - name: Configure
         shell: bash
         run: |
