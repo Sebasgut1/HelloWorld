@@ -35,6 +35,7 @@ jobs:
         message(STATUS "Using host CMake version: ${CMAKE_VERSION}")
 
         if ("${{ runner.os }}" STREQUAL "Linux")
+          sudo apt-get install libboost-all-dev
           set(ninja_suffix "linux.zip")
           set(cmake_suffix "linux-x86_64.tar.gz")
           set(cmake_dir "cmake-${cmake_version}-linux-x86_64/bin")
@@ -59,7 +60,6 @@ jobs:
         if (NOT "${{ runner.os }}" STREQUAL "Windows")
           execute_process(
             COMMAND chmod +x ninja
-            COMMAND apt-get install libboost-all-dev
             COMMAND chmod +x ${cmake_dir}/cmake
           )
         endif()
