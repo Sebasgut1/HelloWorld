@@ -1,5 +1,6 @@
 #include <iostream>
 #include <boost/filesystem/operations.hpp>
+#include <bitpit_common.hpp>
 
 int main()
 {

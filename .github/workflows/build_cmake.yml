@@ -27,22 +27,11 @@ jobs:
             os: ubuntu-latest,
             artifact: "ubuntu_gcc.7z",
             build_type: "Release",
-            cc: "gcc",
-            cxx: "g++",
+            cc: "clang",
+            cxx: 'clang++',
             archiver: "7z a",
             generators: "Ninja"
           }
-          - {
-            name: "Ubuntu_GCC_9",
-            os: ubuntu-latest,
-            artifact: "ubuntu_gcc9.7z",
-            build_type: "Release",
-            cc: "gcc",
-            cxx: "g++",
-            archiver: "7z a",
-            generators: "Ninja"
-          }
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -55,9 +44,24 @@ jobs:
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
+          sudo apt update
+          sudo apt install build-essential
+          sudo apt-get install -y ninja-build
+          sudo apt-get install git
+          sudo apt-get install cmake
+          sudo apt-get install gfortran
+          sudo apt-get install libblas-dev
+          sudo apt-get install liblapack-dev
+          sudo apt-get install liblapacke-dev
+          sudo apt-get install openmpi-bin
           sudo apt-get install libboost-all-dev
-          sudo apt-get update
-          sudo apt-get install ninja-build cmake
+          sudo apt-get install libopenmpi-dev
+          sudo apt-get install petsc-dev
+          sudo apt-get install libxml2-dev
+          sudo apt-get install vim
+          sudo apt-get install mpi
+          
+          
           ninja --version
           cmake --version
           gcc --version
@@ -101,17 +105,21 @@ jobs:
       - name: Configure
         shell: bash
         run: |
-          mkdir build
           mkdir instdir
-          cmake \
-            -S . \
-            -B . \
-            -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
-            -G "${{ matrix.config.generators }}" \
-            -DCMAKE_INSTALL_PREFIX:PATH=instdir
+          git clone https://github.com/optimad/bitpit.git
+          cd bitpit
+          mkdir build
+          cd build
+          cmake -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
+          make && make install
+
       - name: Build
         shell: bash
-        run: cmake --build . --config ${{ matrix.config.build_type }}
+        run: |
+          mkdir build
+          cd build
+          cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Release -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
+          make && ctest
 
       - name: Install Strip
         shell: bash
