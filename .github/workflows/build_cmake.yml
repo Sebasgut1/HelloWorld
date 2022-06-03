@@ -109,8 +109,8 @@ jobs:
           cd bitpit
           mkdir build
           cd build
-          cmake -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/local -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
-          make
+          cmake -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/local -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON ../
+          make -j8
           make install
 
       - name: Build
