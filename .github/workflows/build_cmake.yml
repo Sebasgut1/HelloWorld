@@ -61,6 +61,7 @@ jobs:
           sudo apt-get install vim
           sudo apt-get install mpi
           
+          sudo chmod -R ugo+rwx /usr/local
           
           ninja --version
           cmake --version
