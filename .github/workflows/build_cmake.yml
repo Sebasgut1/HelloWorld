@@ -128,7 +128,7 @@ jobs:
           cd bitpit
           mkdir build
           cd build
-          cmake -DBITPIT_ENABLE_MPI=OFF -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DPETSC_ARCH=arch-linux-c-opt -DPETSC_DIR=/home/runner/work/main/main/lib/petsc-3.17.2 -DPETSC_CURRENT=ON ../
+          cmake -DBITPIT_ENABLE_MPI=OFF -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DPETSC_ARCH=arch-linux-c-opt -DPETSC_DIR=/home/runner/work/HelloWorld/HelloWorld/lib/petsc-3.17.2 -DPETSC_CURRENT=ON ../
           make -j8
           make install
 
@@ -149,7 +149,7 @@ jobs:
           mkdir instdir
           mkdir build
           cd build
-          cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=OFF -DCMAKE_BUILD_TYPE=Release -DPETSC_ARCH=arch-linux-c-opt -DPETSC_DIR=/home/runner/work/main/main/lib/petsc-3.17.2 -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
+          cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=OFF -DCMAKE_BUILD_TYPE=Release -DPETSC_ARCH=arch-linux-c-opt -DPETSC_DIR=/home/runner/work/HelloWorld/HelloWorld/lib/petsc-3.17.2 -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
           make
 
       - name: Install Strip
