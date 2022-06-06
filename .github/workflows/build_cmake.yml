@@ -102,8 +102,6 @@ jobs:
           sudo apt-get install libxml2-dev
           sudo apt-get install vim
           
-          cd helo
-          
           ninja --version
           cmake --version
           gcc --version
