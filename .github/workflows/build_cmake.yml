@@ -102,6 +102,8 @@ jobs:
           sudo apt-get install libxml2-dev
           sudo apt-get install vim
           
+          sudo chmod -R ugo+rwx /usr/local
+          
           ninja --version
           cmake --version
           gcc --version
