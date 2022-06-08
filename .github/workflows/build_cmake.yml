@@ -150,7 +150,7 @@ jobs:
           mkdir build
           cd build
           cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Release -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
-          make
+          make && ctest
       - name: Build with MPI Debug
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC_Debug')
         shell: bash
@@ -159,7 +159,7 @@ jobs:
           mkdir build
           cd build
           cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Debug -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
-          make
+          make && ctest
 
       - name: Build without MPI Release
         if: startsWith(matrix.config.name, 'Without_MPI_Ubuntu_Latest_GCC_Release')
@@ -169,7 +169,7 @@ jobs:
           mkdir build
           cd build
           cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=OFF -DCMAKE_BUILD_TYPE=Release -DPETSC_ARCH=arch-linux-c-opt -DPETSC_DIR=/home/runner/work/HelloWorld/HelloWorld/lib/petsc-3.17.2 -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
-          make
+          make && ctest
       - name: Build without MPI Debug
         if: startsWith(matrix.config.name, 'Without_MPI_Ubuntu_Latest_GCC_Debug')
         shell: bash
@@ -178,7 +178,7 @@ jobs:
           mkdir build
           cd build
           cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=OFF -DCMAKE_BUILD_TYPE=Debug -DPETSC_ARCH=arch-linux-c-opt -DPETSC_DIR=/home/runner/work/HelloWorld/HelloWorld/lib/petsc-3.17.2 -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
-          make
+          make && ctest
 
       - name: Install Strip
         shell: bash
