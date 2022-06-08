@@ -2,8 +2,9 @@ name: CMake Build Matrix
 
 on:
   push:
-  pull_request:
-  release:
+    - 'githubactions'
+  #pull_request:
+  #release:
 
 jobs:
   build:
