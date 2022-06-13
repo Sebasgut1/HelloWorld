@@ -31,6 +31,7 @@ jobs:
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
+          echo "FOAM_SRC=/usr/lib/openfoam/openfoam2106/src" >> $GITHUB_ENV
           echo foam.thing: ${{ env.FOAM_SRC }}
 
       - name: Install dependencies on ubuntu
@@ -127,8 +128,8 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC_Release')
         shell: bash
         run: |
-          echo GONOOOOOOOOOOO
-          echo foam.thing: in release ${{ env.FOAM_SRC }}
+          echo GONOOOOO
+          echo foam.thing: ${{ env.FOAM_SRC }}
           mkdir instdir
           mkdir build
           cd build
