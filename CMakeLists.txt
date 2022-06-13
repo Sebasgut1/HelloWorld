@@ -30,6 +30,25 @@ else()
 endif()
 unset(_index_DEF)
 
+### OPENFOAM ###################################################################
+list(FIND EXTERNAL_ACTIVE_DEPS "OPENFOAM" _OPENFOAM_index)
+if (${_OPENFOAM_index} GREATER -1)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/openfoam/cmake")
+    include(openFOAMSearch)
+    openFOAMSearch(OFOAM_INCLUDES OFOAM_LIBS OFOAM_DEFINITIONS)
+
+    list (APPEND MIMIC_EXTERNAL_DEPENDENCIES "OPENFOAM")
+    list (APPEND MIMIC_EXTERNAL_LIBRARIES "${OFOAM_LIBS}")
+    list (APPEND MIMIC_EXTERNAL_INCLUDE_DIRS "${OFOAM_INCLUDES}")
+
+    addPublicDefinitions("${OFOAM_DEFINITIONS}")
+
+else()
+    cleanSingleCacheVariables("OPENFOAM")
+endif ()
+
+unset(_OPENFOAM_index)
+
 find_package(Boost COMPONENTS filesystem atomic REQUIRED)
 
 add_executable(main main.cpp)

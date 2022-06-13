@@ -2,10 +2,8 @@ name: CMake Build Matrix
 
 on:
   push:
-    branches:
-      - 'githubactions'
-  #pull_request:
-  #release:
+  pull_request:
+  release:
 
 jobs:
   build:
@@ -25,36 +23,7 @@ jobs:
             archiver: "7z a",
             generators: "Ninja"
           }
-          - {
-            name: "Ubuntu_Latest_GCC_Debug",
-            os: ubuntu-latest,
-            artifact: "ubuntu_gcc_Debug.7z",
-            build_type: "Release",
-            cc: "clang",
-            cxx: 'clang++',
-            archiver: "7z a",
-            generators: "Ninja"
-          }
-          - {
-            name: "Without_MPI_Ubuntu_Latest_GCC_Release",
-            os: ubuntu-latest,
-            artifact: "ubuntu_gcc_without_mpi_Release.7z",
-            build_type: "Release",
-            cc: "clang",
-            cxx: "clang++",
-            archiver: "7z a",
-            generators: "Ninja"
-          }
-          - {
-            name: "Without_MPI_Ubuntu_Latest_GCC_Debug",
-            os: ubuntu-latest,
-            artifact: "ubuntu_gcc_without_mpi_Debug.7z",
-            build_type: "Release",
-            cc: "clang",
-            cxx: "clang++",
-            archiver: "7z a",
-            generators: "Ninja"
-          }
+
     steps:
       - uses: actions/checkout@v2
 
@@ -82,6 +51,15 @@ jobs:
           sudo apt-get install libxml2-dev
           sudo apt-get install vim
           sudo apt-get install mpi
+          sudo apt-get install libmetis-dev
+          sudo apt-get install libparmetis-dev
+          sudo apt-get install curl
+          curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
+          sudo apt-get install openfoam2106-default
+          sudo chmod -R ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
+          echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> ~/.bashrc
+          source ~/.bashrc
+          echo $FOAM_SRC
           
           sudo chmod -R ugo+rwx /usr/local
           
@@ -151,7 +129,7 @@ jobs:
           mkdir instdir
           mkdir build
           cd build
-          cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Release -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
+          cmake -DBUILD_MIMIC_API_MODE=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Release -DMIMIC_MODULE_IOOFOAM=ON -DPETSC_DIR=/usr/lib/petsc -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=instdir ../
           make && ctest
       - name: Build with MPI Debug
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC_Debug')
