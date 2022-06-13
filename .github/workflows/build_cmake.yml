@@ -32,7 +32,7 @@ jobs:
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
           echo "FOAM_SRC=/usr/lib/openfoam/openfoam2106/src" >> $GITHUB_ENV
-          echo foam.thing: $GITHUB_ENV
+          echo foam.thing: echo ${{ env.FOAM_SRC }}
 
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
@@ -61,7 +61,10 @@ jobs:
           sudo chmod -R ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
           openfoam-selector --set openfoam2106
           source ~/.bashrc
-          echo foam.thing: $GITHUB_ENV
+          echo foam.thing: echo ${{ env.FOAM_SRC }}
+          cat ~/.bashrc
+          echo GONOOOOOOOOOOO
+          cat $HOME/.bashrc
           
           sudo chmod -R ugo+rwx /usr/local
           
