@@ -58,8 +58,8 @@ jobs:
           sudo apt-get install openfoam2106-default
           sudo chmod -R ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
           #!/bin/bash
-          source /usr/lib/openfoam/openfoam2106/etc/bashrc
-          source ~/.bashrc
+          sudo -s source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          sudo -s source ~/.bashrc
           env
           echo GONOOOOO
           echo $FOAM_SRC
