@@ -57,9 +57,7 @@ jobs:
           curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
           sudo apt-get install openfoam2106-default
           sudo chmod -R ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
-          sudo echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> ~/.bashrc
-          sudo echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
-          sudo echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> ~/.profile
+          sudo -s source /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo -s source ~/.bashrc
           echo GONOOOOO
           echo $FOAM_SRC
