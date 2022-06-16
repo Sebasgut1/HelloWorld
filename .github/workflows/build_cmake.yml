@@ -63,11 +63,11 @@ jobs:
           echo BAAAAASH
           env
           echo EOOOOOOOOOOO
-          sudo -s source /usr/lib/openfoam/openfoam2106/etc/bashrc
-          sudo -s source ~/.bashrc
-          env
+          sudo exec /usr/lib/openfoam/openfoam2106/etc/bashrc
+          sudo exec ~/.bashrc
           echo GONOOOOO
           echo $FOAM_SRC
+          echo foam.thing: ${{ env.FOAM_SRC }}
           echo FINGONOO
           
           sudo chmod -R ugo+rwx /usr/local
@@ -111,6 +111,8 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         shell: bash
         run: |
+          echo $FOAM_SRC
+          echo foam.thing: ${{ env.FOAM_SRC }}
           git clone https://github.com/optimad/bitpit.git
           cd bitpit
           mkdir build
