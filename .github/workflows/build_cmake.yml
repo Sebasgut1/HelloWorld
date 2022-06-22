@@ -60,7 +60,7 @@ jobs:
           sudo chmod ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo sed -i '187iecho "this is the variable WM_PROJECT_DIR : $WM_PROJECT_DIR"' /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo sed '201d' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
-          sudo sed -i '202iecho "_foamEtc -config  CGAL in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '201iecho "adios2 in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
 
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           source ~/.bashrc
