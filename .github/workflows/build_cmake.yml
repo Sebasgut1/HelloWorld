@@ -54,14 +54,14 @@ jobs:
           sudo apt-get install mpi
           sudo apt-get install libmetis-dev
           sudo apt-get install libparmetis-dev
+          sudo apt-get install libcgal-dev
           sudo apt-get install curl
           curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
           sudo apt-get install openfoam2106-default
           sudo chmod ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo sed -i '187iecho "this is the variable WM_PROJECT_DIR : $WM_PROJECT_DIR"' /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo sed -i '204iecho "adios in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
-          sudo sed '198,203d' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
-      
+          
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           source ~/.bashrc
           echo GONOOOOO
