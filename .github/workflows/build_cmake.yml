@@ -59,7 +59,13 @@ jobs:
           sudo apt-get install openfoam2106-default
           sudo chmod ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo sed -i '187iecho "this is the variable WM_PROJECT_DIR : $WM_PROJECT_DIR"' /usr/lib/openfoam/openfoam2106/etc/bashrc
-          sudo sed -i '165iecho "Capture and evaluate command-line parameters in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '183iecho "Verify FOAM_CONFIG_ETC (from calling environment or from prefs) in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '190iecho "Clean standard environment variables (PATH, MANPATH, LD_LIBRARY_PATH) in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '209iecho "Setup for OpenFOAM compilation etc in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '216iecho "Interactive shell (use PS1, not tty) in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '231iecho "Clean environment paths again. Only remove duplicates in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '241iecho "Cleanup temporary information in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           source ~/.bashrc
           echo GONOOOOO
