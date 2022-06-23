@@ -63,7 +63,7 @@ jobs:
           sudo sed -i '204iecho "WM_PROJECT_DIR is $WM_PROJECT_DIR in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
           sudo sed -i '244iecho "FOAM_SRC is $FOAM_SRC in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
     
-         
+          sudo -s echo $0
           source ~/.bashrc
 
           echo GONOOOOO
@@ -111,10 +111,10 @@ jobs:
 
       - name: Configure with MPI
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
-        shell: sh
+        shell: bash
         run: |
           echo SHELl: $SHELL
-          chsh -s /bin/bash
+          /bin/bash
           echo $0
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           source ~/.bashrc
