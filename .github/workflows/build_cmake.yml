@@ -51,7 +51,7 @@ jobs:
           sudo -s <<EOF
           echo $0
           echo $0
-          source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
           source ~/.bashrc
           echo FOAM: $FOAM_SRC and $FOAM_API
           EOF
