@@ -34,7 +34,7 @@ jobs:
           echo $0
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
-        shell: tcsh
+        shell: zsh
         run: |
           sudo apt update
           curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
