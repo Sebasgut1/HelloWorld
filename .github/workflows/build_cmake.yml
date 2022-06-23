@@ -68,6 +68,7 @@ jobs:
           echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
           cat ~/.bashrc
           #!/bin/bash -i
+          sudo -s source /usr/lib/openfoam/openfoam2106/etc/bashrc && echo $FOAM_SRC
           sudo -s source ~/.bashrc
           echo GONOOOOO
           echo $FOAM_SRC
