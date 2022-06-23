@@ -62,10 +62,12 @@ jobs:
           sudo sed -i '187iecho "this is the variable WM_PROJECT_DIR : $WM_PROJECT_DIR"' /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo sed -i '202iecho "cgal in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
           sudo sed -i '204iecho "WM_PROJECT_DIR is $WM_PROJECT_DIR in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '244iecho "FOAM_SRC is $FOAM_SRC in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
 
           echo "echo 'IM IN  BASHRC'" >> $HOME/.bashrc
           echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
           cat ~/.bashrc
+          sudo -s source /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo -s source ~/.bashrc
           echo GONOOOOO
           echo $FOAM_SRC
