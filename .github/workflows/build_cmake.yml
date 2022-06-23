@@ -36,7 +36,7 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         shell: bash
         run: |
-
+          sudo apt update
           curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
           sudo apt-get install openfoam2106-default
           sudo chmod ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
@@ -52,9 +52,9 @@ jobs:
           echo $0
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           source ~/.bashrc
-          echo FOAM: $FOAM_SRC
+          echo FOAM: $FOAM_SRC and $FOAM_API
           EOF
-          sudo /bin/bash source /usr/lib/openfoam/openfoam2106/etc/bashrc ; echo FOAM: $FOAM_SRC
+          /bin/bash source /usr/lib/openfoam/openfoam2106/etc/bashrc ; echo FOAM: $FOAM_SRC
           cd fds
 
 
