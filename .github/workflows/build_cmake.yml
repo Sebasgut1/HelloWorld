@@ -47,17 +47,20 @@ jobs:
           sudo sed -i '244iecho "FOAM_SRC is $FOAM_SRC in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
     
           echo SHELl: $SHELL
+          echo $0
           sudo -s <<EOF
           echo $0
           echo $0
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          source ~/.bashrc
           echo FOAM: $FOAM_SRC
           EOF
           sudo /bin/bash
-          echo $0
-          source /usr/lib/openfoam/openfoam2106/etc/bashrc
-          source ~/.bashrc
-          echo FOAM: $FOAM_SRC
+          echo "echo $0" >> script.sh
+          echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> script.sh
+          echo "source ~/.bashrc" >> script.sh
+          echo "echo FOAM: $FOAM_SRC" >> script.sh
+          sudo -s ./script.sh
           cd fds
 
 
