@@ -31,8 +31,7 @@ jobs:
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
-          export FOAM_SRC=/usr/lib/openfoam/openfoam2106/etc/bashrc
-          echo hello $FOAM_SRC
+          echo $0
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
