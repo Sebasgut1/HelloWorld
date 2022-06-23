@@ -67,8 +67,7 @@ jobs:
           echo "echo 'IM IN  BASHRC'" >> $HOME/.bashrc
           echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
           cat ~/.bashrc
-          #!/bin/bash -i
-          sudo -s source /usr/lib/openfoam/openfoam2106/etc/bashrc && echo $FOAM_SRC
+          sudo -- sh -c source /usr/lib/openfoam/openfoam2106/etc/bashrc ; echo FOAM1 $FOAM_SRC
           sudo -s source ~/.bashrc
           echo GONOOOOO
           echo $FOAM_SRC
