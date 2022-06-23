@@ -111,9 +111,9 @@ jobs:
 
       - name: Configure with MPI
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
-        shell: bash
         run: |
           echo SHELl: $SHELL
+          bin/bash
           . /usr/lib/openfoam/openfoam2106/etc/bashrc
           . ~/.bashrc
           echo FOAM: $FOAM_SRC
