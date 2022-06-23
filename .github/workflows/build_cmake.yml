@@ -48,6 +48,8 @@ jobs:
     
           echo SHELl: $SHELL
           sudo -s <<EOF
+          echo $0
+          echo $0
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           echo FOAM: $FOAM_SRC
           EOF
