@@ -46,6 +46,7 @@ jobs:
           sudo sed -i '204iecho "WM_PROJECT_DIR is $WM_PROJECT_DIR in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
           sudo sed -i '244iecho "FOAM_SRC is $FOAM_SRC in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
     
+          source /usr/lib/openfoam/openfoam2106/etc/bashrc
           echo SHELl: $SHELL
           echo $0
           sudo -s <<EOF
@@ -55,12 +56,7 @@ jobs:
           source ~/.bashrc
           echo FOAM: $FOAM_SRC
           EOF
-          sudo /bin/bash
-          echo "echo $0" >> script.sh
-          echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> script.sh
-          echo "source ~/.bashrc" >> script.sh
-          echo "echo FOAM: $FOAM_SRC" >> script.sh
-          sudo -s ./script.sh
+          sudo /bin/bash source /usr/lib/openfoam/openfoam2106/etc/bashrc ; echo FOAM: $FOAM_SRC
           cd fds
 
 
