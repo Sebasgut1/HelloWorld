@@ -34,7 +34,7 @@ jobs:
           echo $0
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
-        shell: bash
+        shell: sh
         run: |
           sudo apt update
           curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
@@ -52,7 +52,7 @@ jobs:
           echo SHELl: $SHELL
           echo $0
           sudo /bin/bash -c 'echo moda; echo moda; echo monda echo $0;'
-          /bin/bash --rcfile <(echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc && echo 'FOAM: $FOAM_SRC and $FOAM_API'")
+          bash --rcfile <(echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc && echo 'FOAM: $FOAM_SRC and $FOAM_API'")
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           source ~/.bashrc
           echo FOAM: $FOAM_SRC and $FOAM_API
