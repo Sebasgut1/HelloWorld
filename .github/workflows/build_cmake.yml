@@ -66,7 +66,7 @@ jobs:
           source ~/.bashrc
           echo GONOOOOO
           echo $FOAM_SRC
-          echo %FOAM_API
+          echo $FOAM_API
           echo FINGONOO
           
           sudo chmod -R ugo+rwx /usr/local
