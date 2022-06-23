@@ -34,8 +34,31 @@ jobs:
           echo $0
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
+        shell: bash
         run: |
           sudo apt update
+
+            curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
+          sudo apt-get install openfoam2106-default
+          sudo chmod ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
+          sudo sed -i '187iecho "this is the variable WM_PROJECT_DIR : $WM_PROJECT_DIR"' /usr/lib/openfoam/openfoam2106/etc/bashrc
+          sudo sed -i '202iecho "cgal in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '204iecho "WM_PROJECT_DIR is $WM_PROJECT_DIR in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+          sudo sed -i '244iecho "FOAM_SRC is $FOAM_SRC in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
+    
+          echo SHELl: $SHELL
+          sudo -s <<EOF
+          source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          echo FOAM: $FOAM_SRC
+          EOF
+          sudo /bin/bash
+          echo $0
+          source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          source ~/.bashrc
+          echo FOAM: $FOAM_SRC
+          cd fds
+
+
           sudo apt install build-essential
           sudo apt-get install -y ninja-build
           sudo apt-get install git
@@ -55,22 +78,7 @@ jobs:
           sudo apt-get install libparmetis-dev
           sudo apt-get install libcgal-dev
           sudo apt-get install curl
-          curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
-          sudo apt-get install openfoam2106-default
-          sudo chmod ugo+rwx /usr/lib/openfoam/openfoam2106/etc/bashrc
-          sudo sed -i '187iecho "this is the variable WM_PROJECT_DIR : $WM_PROJECT_DIR"' /usr/lib/openfoam/openfoam2106/etc/bashrc
-          sudo sed -i '202iecho "cgal in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
-          sudo sed -i '204iecho "WM_PROJECT_DIR is $WM_PROJECT_DIR in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
-          sudo sed -i '244iecho "FOAM_SRC is $FOAM_SRC in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
-    
-          sudo -s echo $0
-          source ~/.bashrc
-
-          echo GONOOOOO
-          echo $FOAM_SRC
-          echo $FOAM_API
-          echo $WM_PROJECT_DIR
-          echo FINGONOO
+        
           
           sudo chmod -R ugo+rwx /usr/local
           
@@ -111,14 +119,8 @@ jobs:
 
       - name: Configure with MPI
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
-        shell: /bin/bash -e {0}
+        shell: bash
         run: |
-          echo SHELl: $SHELL
-          echo $0
-          source /usr/lib/openfoam/openfoam2106/etc/bashrc
-          source ~/.bashrc
-          echo FOAM: $FOAM_SRC
-          cd fdsc
           git clone https://github.com/optimad/bitpit.git --branch master --single-branch
           cd bitpit
           mkdir build
@@ -143,11 +145,6 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC_Release')
         shell: bash
         run: |
-          echo GONOOOOO
-          echo $FOAM_SRC
-          echo $FOAM_API
-          echo $WM_PROJECT_DIR
-          echo FINGONOO
 
           mkdir instdir
           mkdir build
