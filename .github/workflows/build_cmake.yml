@@ -114,7 +114,7 @@ jobs:
         shell: sh
         run: |
           echo SHELl: $SHELL
-          /bin/bash
+          chsh -s /bin/bash
           echo $0
           source /usr/lib/openfoam/openfoam2106/etc/bashrc
           source ~/.bashrc
