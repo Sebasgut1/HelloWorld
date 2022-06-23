@@ -113,9 +113,9 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         run: |
           echo SHELl: $SHELL
-          bin/bash
-          . /usr/lib/openfoam/openfoam2106/etc/bashrc
-          . ~/.bashrc
+          /bin/bash
+          source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          source ~/.bashrc
           echo FOAM: $FOAM_SRC
           cd fdsc
           git clone https://github.com/optimad/bitpit.git --branch master --single-branch
