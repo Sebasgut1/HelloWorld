@@ -34,7 +34,7 @@ jobs:
           echo $0
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
-        shell: bash
+        shell: tcsh
         run: |
           sudo apt update
           curl -s https://dl.openfoam.com/add-debian-repo.sh | sudo bash
@@ -55,6 +55,9 @@ jobs:
           echo FOAM: $FOAM_SRC and $FOAM_API
           EOF
           /bin/bash source /usr/lib/openfoam/openfoam2106/etc/bashrc ; echo FOAM: $FOAM_SRC
+
+          source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          source ~/.bashrc
           cd fds
 
 
