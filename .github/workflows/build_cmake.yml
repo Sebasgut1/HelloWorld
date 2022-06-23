@@ -64,7 +64,8 @@ jobs:
           sudo sed -i '204iecho "WM_PROJECT_DIR is $WM_PROJECT_DIR in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
           sudo su -
           echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
-          cat $HOME/.bashrc
+          echo "echo 'IM IN  BASHRC'" >> $HOME/.bashrc
+          cat ~/.bashrc
           source ~/.bashrc
           echo GONOOOOO
           echo $FOAM_SRC
