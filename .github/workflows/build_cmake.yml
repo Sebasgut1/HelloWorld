@@ -63,8 +63,8 @@ jobs:
           sudo sed -i '202iecho "cgal in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
           sudo sed -i '204iecho "WM_PROJECT_DIR is $WM_PROJECT_DIR in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
           sudo su -
-          echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
           echo "echo 'IM IN  BASHRC'" >> $HOME/.bashrc
+          echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
           cat ~/.bashrc
           source ~/.bashrc
           echo GONOOOOO
@@ -114,7 +114,6 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         shell: bash
         run: |
-          cd fds
           echo $FOAM_SRC
           echo foam.thing: ${{ env.FOAM_SRC }}
           git clone https://github.com/optimad/bitpit.git --branch master --single-branch
@@ -141,8 +140,15 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC_Release')
         shell: bash
         run: |
+          sudo -s
+          source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          source ~/.bashrc
           echo GONOOOOO
-          echo foam.thing: ${{ env.FOAM_SRC }}
+          echo $FOAM_SRC
+          echo $FOAM_API
+          echo $WM_PROJECT_DIR
+          echo FINGONOO
+
           mkdir instdir
           mkdir build
           cd build
