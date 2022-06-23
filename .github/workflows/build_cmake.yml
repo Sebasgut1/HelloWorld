@@ -62,9 +62,11 @@ jobs:
           sudo sed -i '187iecho "this is the variable WM_PROJECT_DIR : $WM_PROJECT_DIR"' /usr/lib/openfoam/openfoam2106/etc/bashrc
           sudo sed -i '202iecho "cgal in SETUP"' /usr/lib/openfoam/openfoam2106/etc/config.sh/setup
           
-          source /usr/lib/openfoam/openfoam2106/etc/bashrc
+          openfoam-selector --set openfoam2106
           source ~/.bashrc
           echo GONOOOOO
+          echo $FOAM_SRC
+          echo %FOAM_API
           echo FINGONOO
           
           sudo chmod -R ugo+rwx /usr/local
