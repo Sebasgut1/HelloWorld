@@ -67,7 +67,7 @@ jobs:
           echo "echo 'IM IN  BASHRC'" >> $HOME/.bashrc
           echo "source /usr/lib/openfoam/openfoam2106/etc/bashrc" >> $HOME/.bashrc
           
-          sudo -- sh -c "echo HellWorld ; echo FOAM1 $FOAM_SRC"
+          sudo -- sh -c "source /usr/lib/openfoam/openfoam2106/etc/bashrc ; echo FOAM1 $FOAM_SRC"
           source ~/.bashrc
 
           echo GONOOOOO
@@ -115,8 +115,9 @@ jobs:
 
       - name: Configure with MPI
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
-        shell: /usr/lib/openfoam/openfoam2106/etc/bashrc
+        shell: sh
         run: |
+          /usr/lib/openfoam/openfoam2106/etc/bashrc
           echo FOAM: $FOAM_SRC
           cd fdsc
           git clone https://github.com/optimad/bitpit.git --branch master --single-branch
