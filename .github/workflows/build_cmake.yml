@@ -48,7 +48,7 @@ jobs:
 
           echo SHELl: $SHELL
           echo $0
-          sudo /bin/bash -c 'source /usr/lib/openfoam/openfoam2106/etc/bashrc; echo "FOAM: $FOAM_SRC and $FOAM_API"; echo monda; echo $0;'
+          /bin/bash -c 'source /usr/lib/openfoam/openfoam2106/etc/bashrc; echo "FOAM: $FOAM_SRC and $FOAM_API"; echo monda; echo $0;'
           cd fds
 
 
