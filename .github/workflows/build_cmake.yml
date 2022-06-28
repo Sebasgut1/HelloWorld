@@ -15,7 +15,7 @@ jobs:
         config:
           - {
             name: "Ubuntu_Latest_GCC_Release",
-            os: ubuntu-latest,
+            os: self-hosted,
             artifact: "ubuntu_gcc_Release.7z",
             build_type: "Release",
             cc: "clang",
