@@ -123,10 +123,10 @@ jobs:
           make install
 
       - name: Check Always
-      if: always()
-      shell: bash
-      run: |
-        echo "The job keeps working even though the previous one got an error"
+        if: always()
+        shell: bash
+        run: |
+          echo "The job keeps working even though the previous one got an error"
 
       - name: Configure without MPI
         if: startsWith(matrix.config.name, 'Without_MPI_Ubuntu_Latest_GCC')
