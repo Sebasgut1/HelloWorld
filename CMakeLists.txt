@@ -47,15 +47,10 @@ target_include_directories(main PRIVATE "${PETSC_INCLUDES}")
 target_include_directories(main PRIVATE "${PETSC_INCLUDES_CONFIG}")
 
 target_include_directories(toy PRIVATE ${Boost_INCLUDE_DIR})
-target_link_libraries(main PRIVATE ${Boost_LIBRARIES})
-target_link_libraries(main ${PETSC_LIBRARIES})
+target_link_libraries(main PRIVATE ${Boost_LIBRARIES} ${PETSC_LIBRARIES})
 
 install(TARGETS toy DESTINATION bin)
 include(InstallRequiredSystemLibraries)
-
-enable_testing()
-add_test(NAME main COMMAND main)
-add_test(NAME hello2 COMMAND Hello2)
 
 set(CPACK_PACKAGE_FILE_NAME "toyapp")
 include(CPack)
