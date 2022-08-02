@@ -1,9 +1,14 @@
 #include <iostream>
-#include <boost/filesystem/operations.hpp>
-#include <bitpit_common.hpp>
+#include "ExampleClass.h"
+
+#include <petscdm.h>
+#include <petscdmda.h>
+#include <petscksp.h>
+#include <petscsys.h>
+#include <petscvec.h>
 
 int main()
 {
   std::cout << "Hello world!!\n ";
-  std::cout << boost::filesystem::current_path().string();
+  std::cout << "Current path is " + boost::filesystem::current_path().string();
 }
