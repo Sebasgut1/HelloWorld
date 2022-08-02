@@ -61,8 +61,8 @@ jobs:
           make
           cpack
           tar -xvzf toyapp.tar.gz
-          patchelf --add-needed libmpi.so.12 toyapp/bin/toyexe
-          patchelf --add-needed libmetis.so toyapp/bin/toyexe
+          patchelf --add-needed libmpi.so.12 toyapp/bin/main
+          patchelf --add-needed libmetis.so toyapp/bin/main
 
       - name: Pack
         shell: bash
