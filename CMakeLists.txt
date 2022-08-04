@@ -11,8 +11,8 @@ include(ExternalProject)
 ExternalProject_Add(
         petsc_external
 
-        URL https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.3.tar.gz
-        URL_MD5 c27cd0b1f42ad408babda354de6bbb95
+        URL https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
+        URL_MD5 2774138e3117c67f9392a18b2230728a
 
         BUILD_IN_SOURCE 1
         SOURCE_DIR ${CMAKE_BINARY_DIR}/toyapp/external/petsc/
@@ -21,7 +21,7 @@ ExternalProject_Add(
         ${CMAKE_BINARY_DIR}/toyapp/external/petsc/configure
         PETSC_DIR=${CMAKE_BINARY_DIR}/toyapp/external/petsc
         PETSC_ARCH=arch-linux-c-opt all
-        --with-cc=mpicc --with-cxx=mpicxx --with-fc=0 --with-pic=1 --download-f2cblaslapack --download-metis --download-mpich --with-cxx-dialect=C++11 MAKEFLAGS=$MAKEFLAGS COPTFLAGS=-O3 -march=native -mtune=native CXXOPTFLAGS=-O3 -march=native -mtune=native --with-debugging=0
+        --with-cc=mpicc --with-cxx=mpicxx --with-fc=0 --with-pic=1 --download-f2cblaslapack --download-metis --download-openmpi --with-cxx-dialect=C++11 MAKEFLAGS=$MAKEFLAGS COPTFLAGS=-O3 -march=native -mtune=native CXXOPTFLAGS=-O3 -march=native -mtune=native --with-debugging=0
 
         BUILD_COMMAND
         make -j
