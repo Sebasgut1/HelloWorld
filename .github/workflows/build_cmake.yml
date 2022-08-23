@@ -46,7 +46,7 @@ jobs:
         if: startsWith(matrix.config.name, 'SUSE')
         shell: bash
         run: |
-          sudo zypper install update
+          
           sudo zypper install ninja
           sudo zypper install git
           sudo zypper install cmake
