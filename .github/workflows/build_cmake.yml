@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {
+          -{
             name: "Ubuntu_Latest_GCC_Release",
             os: ubuntu-latest,
             artifact: "ubuntu_gcc_Release",
@@ -22,7 +22,7 @@ jobs:
             cxx: 'clang++',
             archiver: "7z a",
             generators: "Ninja"
-          }
+            }
           -{
             name: "SUSE Enterprise Linux SP15",
             os: self-hosted,
@@ -32,7 +32,7 @@ jobs:
             cxx: "clang++",
             archiver: ".gz",
             generator: "Ninja"
-          }
+            }
 
     steps:
       - uses: actions/checkout@v2
