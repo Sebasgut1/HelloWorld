@@ -28,7 +28,7 @@ jobs:
             os: self-hosted,
             artifact: "suse-release",
             build_type: "Release",
-            cc: "clang"
+            cc: "clang",
             cxx: "clang++",
             archiver: ".gz",
             generator: "Ninja"
