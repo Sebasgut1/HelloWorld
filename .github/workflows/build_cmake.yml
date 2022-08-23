@@ -23,6 +23,16 @@ jobs:
             archiver: "7z a",
             generators: "Ninja"
           }
+          -{
+            name: "SUSE Enterprise Linux SP15",
+            os: self-hosted,
+            artifact: "suse-release",
+            build_type: "Release",
+            cc: "clang"
+            cxx: "clang++",
+            archiver: ".gz",
+            generator: "Ninja"
+          }
 
     steps:
       - uses: actions/checkout@v2
@@ -31,6 +41,22 @@ jobs:
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
+
+      - name: Install dependencies on Suse
+        if: startsWith(matrix.config.name, 'SUSE')
+        shell: bash
+        run: |
+          zypper install update
+          zypper install ninja
+          zypper install git
+          zypper install cmake
+          zypper install libboost-all-dev
+          zypper install patchelf
+        
+          ninja --version
+          cmake --version
+          gcc --version
+
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
         shell: bash
