@@ -46,12 +46,12 @@ jobs:
         if: startsWith(matrix.config.name, 'SUSE')
         shell: bash
         run: |
-          zypper install update
-          zypper install ninja
-          zypper install git
-          zypper install cmake
-          zypper install libboost-all-dev
-          zypper install patchelf
+          sudo zypper install update
+          sudo zypper install ninja
+          sudo zypper install git
+          sudo zypper install cmake
+          sudo zypper install libboost-all-dev
+          sudo zypper install patchelf
         
           ninja --version
           cmake --version
