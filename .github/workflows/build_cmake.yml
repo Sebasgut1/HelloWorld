@@ -52,6 +52,7 @@ jobs:
           sudo zypper install cmake
           sudo zypper install libboost-all-dev
           sudo zypper install patchelf
+          echo "It's working"
         
           ninja --version
           cmake --version
