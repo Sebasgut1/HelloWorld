@@ -46,17 +46,79 @@ jobs:
         if: startsWith(matrix.config.name, 'SUSE')
         shell: bash
         run: |
-          
+          sudo zypper addrepo https://download.opensuse.org/repositories/science/openSUSE_Leap_15.3/science.repo
+          sudo zypper ref
+          sudo zypper install -t pattern devel_basis
+          sudo zypper install wget
+          sudo zypper install gzip
+          sudo zypper install gcc-c++
+          sudo zypper install gcc-fortran
           sudo zypper install ninja
           sudo zypper install git
           sudo zypper install cmake
-          sudo zypper install libboost-all-dev
-          sudo zypper install patchelf
-          echo "It's working"
-        
-          ninja --version
-          cmake --version
-          gcc --version
+          sudo zypper install hdf5-devel
+          sudo zypper install cgns-devel
+          sudo zypper install cblas
+          sudo zypper install libblas3
+          sudo zypper install lapack-devel
+          sudo zypper install lapacke-devel
+          sudo zypper install openmpi4-devel
+          sudo zypper install libboost_*
+          sudo zypper install libxml2-devel
+          sudo zypper install metis-devel
+          ##parametris not found
+          sudo zypper install openfoam2106-default
+          cd lib
+          mkdir petsc
+          wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
+          tar -xzvf petsc-3.17.4.tar.gz
+          cd petsc-3.17.4
+          ./configure  --prefix=/usr/local/petsc --with-cc=/usr/lib64/mpi/gcc/openmpi4/bin/mpicc --with-cxx=/usr/lib64/mpi/gcc/openmpi4/bin/mpicxx --with-fc=/usr/lib64/mpi/gcc/openmpi4/bin/mpif90 --with-debugging=0 COPTFLAGS='-O3 -march=native -mtune=native' CXXOPTFLAGS='-O3 -march=native -mtune=native' FOPTFLAGS='-O3 -march=native -mtune=native' --with-batch
+          make
+          ##PETSC_DIR=/lib/petsc-3.17.4 PETSC_ARCH=arch-linux-c-opt install
+    
+      - name: Configure BITPIT SUSE
+        if: startsWith(matrix.config.name, 'SUSE')
+        shell: bash
+        run: |
+          git clone --depth 1 --single-branch --branch mimic-devel https://github.com/optimad/bitpit.git
+          cd bitpit
+          mkdir build
+          cd build
+          cmake -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DPETSC_DIR=/lib/petsc-3.17.4 -DPETSC_ARCH=arch-linux-c-opt -DPETSC_CURRENT=ON ../
+          make -j8
+          make install
+
+      - name: Build Release SUSE
+        if: startsWith(matrix.config.name, 'SUSE')
+        shell: bash
+        run: |
+          mkdir instdir
+          mkdir build
+          cd build
+          /bin/bash -c 'export OMPI_MCA_rmaps_base_oversubscribe=1; source /usr/lib/openfoam/openfoam2106/etc/bashrc; cmake -DBUILD_XMLTUI=ON -DBUILD_TESTPLUGIN=ON -DBUILD_EXAMPLES=ON -DBUILD_MIMIC_API_MODE=ON -DBUILD_SHARED_LIBS=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Release -DMIMIC_MODULE_IOCGNS=ON -DMIMIC_MODULE_IOCUSTOMDATA=ON -DMIMIC_MODULE_IOOFOAM=ON -DMIMIC_MODULE_NURBS=ON -DMIMIC_MODULE_OBJWAVEFRONT=ON -DMIMIC_MODULE_WRAPPERBLOCKS=ON -DPETSC_DIR=/lib/petsc-3.17.4 -DPETSC_ARCH=arch-linux-c-opt -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=../instdir ../; make -j8; ctest --rerun-failed --output-on-failure;'  
+   
+      - name: Install Strip
+        if: startsWith(matrix.config.name, 'SUSE')
+        shell: bash
+        run: |
+          cd build
+          /bin/bash -c 'source /usr/lib/openfoam/openfoam2106/etc/bashrc; cmake --install . --strip;'
+          
+      - name: Pack SUSE
+        if: startsWith(matrix.config.name, 'SUSE')
+        shell: bash
+        working-directory: instdir
+        run: |
+          ls -laR
+          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} .
+          
+      - name: Upload suse
+        uses: actions/upload-artifact@v1
+        with:
+          path: ./${{ matrix.config.artifact }}
+          name: ${{ matrix.config.artifact }}
+
 
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu_Latest_GCC')
