@@ -48,7 +48,7 @@ jobs:
         run: |
           sudo zypper addrepo https://download.opensuse.org/repositories/science/openSUSE_Leap_15.3/science.repo
           sudo zypper ref
-          sudo zypper install -t pattern devel_basis
+          sudo zypper install -y -t pattern devel_basis
           sudo zypper install wget
           sudo zypper install gzip
           sudo zypper install gcc-c++
@@ -67,7 +67,7 @@ jobs:
           sudo zypper install libxml2-devel
           sudo zypper install metis-devel
           ##parametris not found
-          sudo zypper install openfoam2106-default
+          sudo zypper install -y openfoam2106-default
           cd lib
           mkdir petsc
           wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
