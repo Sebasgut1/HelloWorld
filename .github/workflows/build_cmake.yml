@@ -45,9 +45,9 @@ jobs:
       - name: Install dependencies on Suse
         if: startsWith(matrix.config.name, 'SUSE')
         shell: bash
+        #sudo zypper addrepo https://download.opensuse.org/repositories/science/openSUSE_Leap_15.3/science.repo
+        #sudo zypper ref
         run: |
-          sudo zypper addrepo https://download.opensuse.org/repositories/science/openSUSE_Leap_15.3/science.repo
-          sudo zypper ref
           sudo zypper install -y -t pattern devel_basis
           sudo zypper install -y wget
           sudo zypper install -y gzip
