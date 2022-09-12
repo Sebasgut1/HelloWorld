@@ -49,29 +49,29 @@ jobs:
           sudo zypper addrepo https://download.opensuse.org/repositories/science/openSUSE_Leap_15.3/science.repo
           sudo zypper ref
           sudo zypper install -y -t pattern devel_basis
-          sudo zypper install wget
-          sudo zypper install gzip
-          sudo zypper install gcc-c++
-          sudo zypper install gcc-fortran
-          sudo zypper install ninja
-          sudo zypper install git
-          sudo zypper install cmake
-          sudo zypper install hdf5-devel
-          sudo zypper install cgns-devel
-          sudo zypper install cblas
-          sudo zypper install libblas3
-          sudo zypper install lapack-devel
-          sudo zypper install lapacke-devel
-          sudo zypper install openmpi4-devel
-          sudo zypper install libboost_*
-          sudo zypper install libxml2-devel
-          sudo zypper install metis-devel
+          sudo zypper install -y wget
+          sudo zypper install -y gzip
+          sudo zypper install -y gcc-c++
+          sudo zypper install -y gcc-fortran
+          sudo zypper install -y ninja
+          sudo zypper install -y git
+          sudo zypper install -y cmake
+          sudo zypper install -y hdf5-devel 
+          sudo zypper install -y cgns-devel
+          sudo zypper install -y cblas
+          sudo zypper install -y libblas3
+          sudo zypper install -y lapack-devel
+          sudo zypper install -y lapacke-devel
+          sudo zypper install -y openmpi4-devel
+          sudo zypper install -y libboost_*
+          sudo zypper install -y libxml2-devel
+          sudo zypper install -y metis-devel
           ##parametris not found
           sudo zypper install -y openfoam2106-default
           cd lib
           mkdir petsc
-          wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
-          tar -xzvf petsc-3.17.4.tar.gz
+          sudo wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
+          sudo tar -xzvf petsc-3.17.4.tar.gz
           cd petsc-3.17.4
           ./configure  --prefix=/usr/local/petsc --with-cc=/usr/lib64/mpi/gcc/openmpi4/bin/mpicc --with-cxx=/usr/lib64/mpi/gcc/openmpi4/bin/mpicxx --with-fc=/usr/lib64/mpi/gcc/openmpi4/bin/mpif90 --with-debugging=0 COPTFLAGS='-O3 -march=native -mtune=native' CXXOPTFLAGS='-O3 -march=native -mtune=native' FOPTFLAGS='-O3 -march=native -mtune=native' --with-batch
           make
@@ -81,11 +81,11 @@ jobs:
         if: startsWith(matrix.config.name, 'SUSE')
         shell: bash
         run: |
-          git clone --depth 1 --single-branch --branch mimic-devel https://github.com/optimad/bitpit.git
+          sudo git clone --depth 1 --single-branch --branch mimic-devel https://github.com/optimad/bitpit.git
           cd bitpit
-          mkdir build
+          sudo mkdir build
           cd build
-          cmake -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DPETSC_DIR=/lib/petsc-3.17.4 -DPETSC_ARCH=arch-linux-c-opt -DPETSC_CURRENT=ON ../
+          sudo cmake -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DPETSC_DIR=/lib/petsc-3.17.4 -DPETSC_ARCH=arch-linux-c-opt -DPETSC_CURRENT=ON ../
           make -j8
           make install
 
