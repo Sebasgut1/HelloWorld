@@ -68,8 +68,8 @@ jobs:
           sudo zypper install -y metis-devel
           ##parametris not found
           sudo zypper install -y openfoam2106-default
+          mkdir lib
           cd lib
-          mkdir petsc
           sudo wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
           sudo tar -xzvf petsc-3.17.4.tar.gz
           cd petsc-3.17.4
