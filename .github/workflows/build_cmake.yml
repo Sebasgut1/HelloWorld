@@ -42,19 +42,17 @@ jobs:
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
-          sudo apt-get install -y python3-dev
-          cd /opt/
-          wget --no-verbose https://boostorg.jfrog.io/artifactory/main/release/1.79.0/source/boost_1_79_0.tar.gz
-          echo "EOOOOOOOOOOOOOOOO"
-          tar xzf boost_1_79_0.tar.gz
-          echo "OEEEEEEEEEEEEEEE"
-          cd boost_1_79_0
-          sudo ./bootstrap.sh --with-python=$(which python3)
-          echo "AAAAAAAAAAAAAAAAAAAA"
-          sudo ./b2 install
-          cd ../
-          rm boost_1_79_0.tar.gz
-          rm -r boost_1_79_0/
+          cd /opt
+          wget --no-verbose https://github.com/USCiLab/cereal/archive/v1.3.2.tar.gz
+          tar xzf v1.3.2.tar.gz
+          mkdir cereal-1.3.2/build
+          cd cereal-1.3.2/build
+          cmake -DBUILD_SANDBOX=OFF -DBUILD_TESTS=OFF -DWITH_WERROR=OFF ../
+          make
+          sudo make install
+          cd ../../
+          rm -r cereal-1.3.2/
+          rm v1.3.2.tar.gz
 
       - name: Install dependencies on Suse
         if: startsWith(matrix.config.name, 'SUSE')
