@@ -41,4 +41,4 @@ jobs:
         if: startsWith(matrix.config.name, 'Windows')
         shell: pwsh
         run: |
-          choco install cmake
+          choco install cmake gdb gdbserver git gfortran apt-utils zip unzip vim curl wget libxml2-dev
