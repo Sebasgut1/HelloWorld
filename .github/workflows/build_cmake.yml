@@ -42,6 +42,7 @@ jobs:
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
+          sudo apt-get install libboost-all-dev
           cd /opt
           wget --no-verbose https://github.com/USCiLab/cereal/archive/v1.3.2.tar.gz
           tar xzf v1.3.2.tar.gz
