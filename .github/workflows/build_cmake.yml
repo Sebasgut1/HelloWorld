@@ -42,39 +42,54 @@ jobs:
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
+          sudo apt-get install -y python3-dev
+          cd /opt/
+          wget --no-verbose https://boostorg.jfrog.io/artifactory/main/release/1.79.0/source/boost_1_79_0.tar.gz
+          echo "EOOOOOOOOOOOOOOOO"
+          tar xzf boost_1_79_0.tar.gz
+          echo "OEEEEEEEEEEEEEEE"
+          cd boost_1_79_0
+          ./bootstrap.sh --with-python=$(which python3)
+          echo "AAAAAAAAAAAAAAAAAAAA"
+          ./b2 install
+          cd ../
+          rm boost_1_79_0.tar.gz
+          rm -r boost_1_79_0/
+
       - name: Install dependencies on Suse
         if: startsWith(matrix.config.name, 'SUSE')
         shell: bash
         #sudo zypper addrepo https://download.opensuse.org/repositories/science/openSUSE_Leap_15.3/science.repo
         #sudo zypper ref
         run: |
-          sudo zypper install -y -t pattern devel_basis
-          sudo zypper install -y wget
-          sudo zypper install -y gzip
-          sudo zypper install -y gcc-c++
-          sudo zypper install -y gcc-fortran
-          sudo zypper install -y ninja
-          sudo zypper install -y git
-          sudo zypper install -y cmake
-          sudo zypper install -y hdf5-devel 
-          sudo zypper install -y cgns-devel
-          sudo zypper install -y cblas
-          sudo zypper install -y libblas3
-          sudo zypper install -y lapack-devel
-          sudo zypper install -y lapacke-devel
-          sudo zypper install -y openmpi4-devel
-          sudo zypper install -y libboost_*
-          sudo zypper install -y libxml2-devel
-          sudo zypper install -y metis-devel
-          ##parametris not found
-          sudo zypper install -y openfoam2106-default
-          mkdir lib
-          cd lib
-          sudo wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
-          sudo tar -xzvf petsc-3.17.4.tar.gz
-          cd petsc-3.17.4
-          ./configure  --prefix=/usr/local/petsc --with-cc=/usr/lib64/mpi/gcc/openmpi4/bin/mpicc --with-cxx=/usr/lib64/mpi/gcc/openmpi4/bin/mpicxx --with-fc=/usr/lib64/mpi/gcc/openmpi4/bin/mpif90 --with-debugging=0 COPTFLAGS='-O3 -march=native -mtune=native' CXXOPTFLAGS='-O3 -march=native -mtune=native' FOPTFLAGS='-O3 -march=native -mtune=native' --with-batch
-          make
+          #sudo zypper install -y -t pattern devel_basis
+          #sudo zypper install -y wget
+          #sudo zypper install -y gzip
+          #sudo zypper install -y gcc-c++
+          #sudo zypper install -y gcc-fortran
+          #sudo zypper install -y ninja
+          #sudo zypper install -y git
+          #sudo zypper install -y cmake
+          #sudo zypper install -y hdf5-devel 
+          #sudo zypper install -y cgns-devel
+          #sudo zypper install -y cblas
+          #sudo zypper install -y libblas3
+          #sudo zypper install -y lapack-devel
+          #sudo zypper install -y lapacke-devel
+          #sudo zypper install -y openmpi4-devel
+          #sudo zypper install -y libboost_*
+          #sudo zypper install -y libxml2-devel
+          #sudo zypper install -y metis-devel
+          #apt-get install libhdf5-dev
+          ###parametris not found
+          #sudo zypper install -y openfoam2106-default
+          #mkdir lib
+          #cd lib
+          #sudo wget https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-3.17.4.tar.gz
+          #sudo tar -xzvf petsc-3.17.4.tar.gz
+          #cd petsc-3.17.4
+          #./configure  --prefix=/usr/local/petsc --with-cc=/usr/lib64/mpi/gcc/openmpi4/bin/mpicc --with-cxx=/usr/lib64/mpi/gcc/openmpi4/bin/mpicxx --with-fc=/usr/lib64/mpi/gcc/openmpi4/bin/mpif90 --with-debugging=0 COPTFLAGS='-O3 -march=native -mtune=native' CXXOPTFLAGS='-O3 -march=native -mtune=native' FOPTFLAGS='-O3 -march=native -mtune=native' --with-batch
+          #make
           ##PETSC_DIR=/lib/petsc-3.17.4 PETSC_ARCH=arch-linux-c-opt install
     
       - name: Configure BITPIT SUSE
