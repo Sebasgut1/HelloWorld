@@ -21,9 +21,29 @@ jobs:
             archiver: "zip",
             generators: "Ninja"
           }
-
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            base-devel
+            binutils
+            python
+            git
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-lapack
+            mingw-w64-x86_64-msmpi
+            mingw-w64-x86_64-libxml2
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-qt5
+            mingw-w64-x86_64-doxygen
+            mingw-w64-x86_64-graphviz
+            mingw-w64-x86_64-rapidjson
+
+      - uses: actions/checkout@v3
 
       - name: Print env
         run: |
@@ -32,28 +52,8 @@ jobs:
 
       - name: Install choco on windows
         if: startsWith(matrix.config.name, 'Windows')
-        shell: pwsh
         run: |
-          Set-ExecutionPolicy Bypass -Scope Process
-          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-        
-      - name: Install Dependencies on windows
-        if: startsWith(matrix.config.name, 'Windows')
-        shell: pwsh
-        run: |
-          choco install git zip unzip vim curl wget msys2
-          pacman -S mingw-w64-x86_64-gcc
-          pacman -S base-devel
-          pacman -S binutils
-          pacman -S python
-          pacman -S git
-          pacman -S mingw-w64-x86_64-toolchain
-          pacman -S mingw-w64-x86_64-lapack
-          pacman -S mingw-w64-x86_64-msmpi
-          pacman -S mingw-w64-x86_64-libxml2
-          pacman -S mingw-w64-x86_64-cmake
-          pacman -S mingw-w64-x86_64-doxygen
-          pacman -S mingw-w64-x86_64-graphviz
-          pacman -S mingw-w64-x86_64-rapidjson
-          pacman -S mingw-w64-x86_64-petsc
-          pacman -S mingw-w64-x86_64-petsc-build
+          uname -a
+          echo "Hello"
+          gcc -v
+          echo %PATH%
