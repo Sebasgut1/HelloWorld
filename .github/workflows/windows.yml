@@ -1,4 +1,4 @@
-name: CMake Build Matrix
+name: Windows
 
 on:
   push:
@@ -37,8 +37,9 @@ jobs:
           Set-ExecutionPolicy Bypass -Scope Process
           Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
         
-      - name: Install cmake on windows
+      - name: Install Dependencies on windows
         if: startsWith(matrix.config.name, 'Windows')
         shell: pwsh
         run: |
-          choco install cmake gdb gdbserver git gfortran apt-utils zip unzip vim curl wget libxml2-dev
+          choco install cmake git zip unzip vim curl wget
+          choco install libblas-dev liblapack-dev liblapacke-dev petsc-dev libcurl4-openssl-dev libmetis-dev libparmetis-dev
