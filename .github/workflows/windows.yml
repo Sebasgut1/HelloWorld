@@ -59,4 +59,8 @@ jobs:
           uname -a
           echo "Hello"
           gcc -v
+          wget https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisetup.exe
+          wget https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisdk.msi
+          ./msmpisdk.msi
+          ./msmpisetup.exe
           printenv | grep "WIN\|MSMPI"
