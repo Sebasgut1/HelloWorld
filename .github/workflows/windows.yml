@@ -41,5 +41,19 @@ jobs:
         if: startsWith(matrix.config.name, 'Windows')
         shell: pwsh
         run: |
-          choco install cmake git zip unzip vim curl wget
-          choco install libblas-dev liblapack-dev liblapacke-dev petsc-dev libcurl4-openssl-dev libmetis-dev libparmetis-dev
+          choco install git zip unzip vim curl wget msys2
+          pacman -S mingw-w64-x86_64-gcc
+          pacman -S base-devel
+          pacman -S binutils
+          pacman -S python
+          pacman -S git
+          pacman -S mingw-w64-x86_64-toolchain
+          pacman -S mingw-w64-x86_64-lapack
+          pacman -S mingw-w64-x86_64-msmpi
+          pacman -S mingw-w64-x86_64-libxml2
+          pacman -S mingw-w64-x86_64-cmake
+          pacman -S mingw-w64-x86_64-doxygen
+          pacman -S mingw-w64-x86_64-graphviz
+          pacman -S mingw-w64-x86_64-rapidjson
+          pacman -S mingw-w64-x86_64-petsc
+          pacman -S mingw-w64-x86_64-petsc-build
