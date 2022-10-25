@@ -67,3 +67,17 @@ jobs:
         if: startsWith(matrix.config.name, 'Windows')
         run: |
           printenv | grep "WIN\|MSMPI"
+          cygpath -ms 'C:\Program Files\Microsoft MPI\Bin\'
+          cygpath -u 'C:/PROGRA~1/MICROS~2/Bin/'
+          export PATH=$PATH:/c/PROGRA~1/MICROS~2/Bin/
+
+      - name: Build Bitpit
+        if: startsWith(matrix.config.name, 'Windows')
+        run: |
+          git clone --depth 1 --single-branch --branch mimic-devel https://github.com/optimad/bitpit.git
+          cd bitpit
+          mkdir build
+          cd build
+          cmake -G "MinGW Makefiles" -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bitpit_install -DPETSC_DIR=/c/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
+          make
+          make install
