@@ -46,6 +46,9 @@ jobs:
             mingw-w64-x86_64-msmpi
             mingw-w64-x86_64-petsc
             mingw-w64-x86_64-petsc-build
+            mingw-w64-x86_64-cgns
+            mingw-w64-x86_64-parmetis
+            mingw-w64-x86_64-vtk
 
       - uses: actions/checkout@v3
 
@@ -81,6 +84,20 @@ jobs:
           cd build
           cmake -G "MinGW Makefiles" -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
           echo "MAKEEEEEEEEE"
-          make
+          cmake --build . --config Release
           echo "MAKEEEEEEEEE INSTALL"
-          make install
+          cmake --install . --config Release
+          dir ..
+
+      - name: Build Mimic
+        if: startsWith(matrix.config.name, 'Windows')
+        run: |
+          git clone --depth 1 --single-branch --branch general.msvc.compiling https://github.com/optimad/mimic.git
+          cd mimic
+          mkdir build
+          cd build
+          export OMPI_MCA_rmaps_base_oversubscribe=1
+          cmake -G "MinGW Makefiles" -DBUILD_XMLTUI=ON -DBUILD_TESTPLUGIN=ON -DBUILD_EXAMPLES=ON -DBUILD_MIMIC_API_MODE=ON -DBUILD_SHARED_LIBS=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Release -DMIMIC_MODULE_IOCGNS=ON -DMIMIC_MODULE_IOCUSTOMDATA=ON -DMIMIC_MODULE_IOOFOAM=OFF -DMIMIC_MODULE_NURBS=ON -DMIMIC_MODULE_OBJWAVEFRONT=ON -DMIMIC_MODULE_WRAPPERBLOCKS=ON -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=../instdir ../
+          make -j8
+          ctest --rerun-failed --output-on-failure
+          cmake --install . --config Release
