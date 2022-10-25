@@ -38,6 +38,7 @@ jobs:
             mingw-w64-x86_64-lapack
             mingw-w64-x86_64-msmpi
             mingw-w64-x86_64-libxml2
+            mingw-w64-x86_64-make
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-qt5
             mingw-w64-x86_64-doxygen
@@ -77,7 +78,6 @@ jobs:
 
       - name: Build Bitpit
         if: startsWith(matrix.config.name, 'Windows')
-        shell: cmd
         run: |
           git clone --depth 1 --single-branch --branch mimic-devel https://github.com/optimad/bitpit.git
           cd bitpit
