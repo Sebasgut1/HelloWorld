@@ -33,6 +33,7 @@ jobs:
             binutils
             python
             git
+            make
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-lapack
             mingw-w64-x86_64-msmpi
@@ -79,5 +80,7 @@ jobs:
           mkdir build
           cd build
           cmake -G "MinGW Makefiles" -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
+          echo "MAKEEEEEEEEE"
           make
+          echo "MAKEEEEEEEEE INSTALL"
           make install
