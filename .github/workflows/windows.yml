@@ -57,7 +57,7 @@ jobs:
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
-      - name: Install choco on windows
+      - name: Install MPI on windows
         if: startsWith(matrix.config.name, 'Windows')
         shell: cmd
         run: |
@@ -77,27 +77,15 @@ jobs:
 
       - name: Build Bitpit
         if: startsWith(matrix.config.name, 'Windows')
+        shell: cmd
         run: |
           git clone --depth 1 --single-branch --branch mimic-devel https://github.com/optimad/bitpit.git
           cd bitpit
           mkdir build
           cd build
-          cmake -G "MinGW Makefiles" -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
+          cmake -G "MinGW Makefiles" -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
           echo "MAKEEEEEEEEE"
-          cmake --build . --config Release
-          echo "MAKEEEEEEEEE INSTALL"
-          cmake --install . --config Release
-          dir ..
-
-      - name: Build Mimic
-        if: startsWith(matrix.config.name, 'Windows')
-        run: |
-          git clone --depth 1 --single-branch --branch general.msvc.compiling https://github.com/optimad/mimic.git
-          cd mimic
-          mkdir build
-          cd build
-          export OMPI_MCA_rmaps_base_oversubscribe=1
-          cmake -G "MinGW Makefiles" -DBUILD_XMLTUI=ON -DBUILD_TESTPLUGIN=ON -DBUILD_EXAMPLES=ON -DBUILD_MIMIC_API_MODE=ON -DBUILD_SHARED_LIBS=ON -DENABLE_MPI=ON -DCMAKE_BUILD_TYPE=Release -DMIMIC_MODULE_IOCGNS=ON -DMIMIC_MODULE_IOCUSTOMDATA=ON -DMIMIC_MODULE_IOOFOAM=OFF -DMIMIC_MODULE_NURBS=ON -DMIMIC_MODULE_OBJWAVEFRONT=ON -DMIMIC_MODULE_WRAPPERBLOCKS=ON -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON -DCMAKE_INSTALL_PREFIX:PATH=../instdir ../
           make -j8
-          ctest --rerun-failed --output-on-failure
-          cmake --install . --config Release
+          echo "MAKEEEEEEEEE INSTALL"
+          make install -j8
+          dir ..
