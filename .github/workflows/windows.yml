@@ -26,7 +26,10 @@ jobs:
         shell: msys2 {0}
     steps:
       - uses: msys2/setup-msys2@v2
+      - uses: nuget/setup-nuget@v1
         with:
+          nuget-api-key: ${{ secrets.NuGetAPIKey }}
+          nuget-version: '5.x'
           update: true
           install: >-
             base-devel
@@ -54,6 +57,7 @@ jobs:
 
       - name: Print env
         run: |
+          nuget restore MyProject.sln
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
