@@ -37,7 +37,7 @@ jobs:
         if: startsWith(matrix.config.name, 'Windows')
         shell: cmd
         run: |
-          curl -L -O http://www.equation.com/ftpdir/gcc/gcc-10.3.0-64.exe
+          curl -L -O http://www.equation.com/ftpdir/gcc/gcc-12.2.0-64.exe
           .\gcc-12.2.0-64.exe -unattend -force
           gcc -v
           curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisetup.exe
