@@ -26,7 +26,9 @@ jobs:
         with:
           nuget-api-key: ${{ secrets.NuGetAPIKey }}
           nuget-version: '5.x'
+      - run: git config --global core.autocrlf input
       - uses: actions/checkout@v3
+      - uses: cygwin/cygwin-install-action@master
 
       - name: Print env
         run: |
@@ -37,8 +39,6 @@ jobs:
         if: startsWith(matrix.config.name, 'Windows')
         shell: cmd
         run: |
-          curl -L -O http://www.equation.com/ftpdir/gcc/gcc-12.2.0-64.exe
-          .\gcc-12.2.0-64.exe -unattend -force
           gcc -v
           curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisetup.exe
           curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisdk.msi
