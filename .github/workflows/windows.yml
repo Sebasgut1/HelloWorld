@@ -40,7 +40,7 @@ jobs:
         shell: cmd
         run: |
           curl -L -O https://registrationcenter-download.intel.com/akdlm/IRC_NAS/18857/w_HPCKit_p_2022.3.0.9564_offline.exe
-          .\w_HPCKit_p_2022.3.0.9564_offline.exe -unattend -force
+          .\w_HPCKit_p_2022.3.0.9564_offline.exe --s
           gcc -v
           curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisetup.exe
           curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisdk.msi
