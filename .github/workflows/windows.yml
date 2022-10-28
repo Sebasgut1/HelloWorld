@@ -21,38 +21,11 @@ jobs:
             archiver: "zip",
             generators: "Ninja"
           }
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
-      - uses: msys2/setup-msys2@v2
       - uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NuGetAPIKey }}
           nuget-version: '5.x'
-          update: true
-          install: >-
-            base-devel
-            binutils
-            python
-            git
-            make
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-lapack
-            mingw-w64-x86_64-msmpi
-            mingw-w64-x86_64-libxml2
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-qt5
-            mingw-w64-x86_64-doxygen
-            mingw-w64-x86_64-graphviz
-            mingw-w64-x86_64-rapidjson
-            mingw-w64-x86_64-msmpi
-            mingw-w64-x86_64-petsc
-            mingw-w64-x86_64-petsc-build
-            mingw-w64-x86_64-cgns
-            mingw-w64-x86_64-parmetis
-            mingw-w64-x86_64-vtk
-
       - uses: actions/checkout@v3
 
       - name: Print env
