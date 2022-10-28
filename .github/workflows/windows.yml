@@ -30,7 +30,7 @@ jobs:
 
       - name: Print env
         run: |
-          nuget restore MyProject.sln
+          nuget install Newtonsoft.Json -OutputDirectory packages
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
