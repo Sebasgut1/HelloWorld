@@ -30,7 +30,6 @@ jobs:
 
       - name: Print env
         run: |
-          nuget install Newtonsoft.Json -OutputDirectory packages
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
@@ -38,19 +37,21 @@ jobs:
         if: startsWith(matrix.config.name, 'Windows')
         shell: cmd
         run: |
+          curl -L -O http://www.equation.com/ftpdir/gcc/gcc-10.3.0-64.exe
+          .\gcc-12.2.0-64.exe -unattend -force
           gcc -v
           curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisetup.exe
           curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisdk.msi
           msmpisdk.msi /quiet
           .\msmpisetup.exe -unattend -force
           
-      - name: Print Microsoft MPI Env
-        if: startsWith(matrix.config.name, 'Windows')
-        run: |
-          printenv | grep "WIN\|MSMPI"
-          cygpath -ms 'C:\Program Files\Microsoft MPI\Bin\'
-          cygpath -u 'C:/PROGRA~1/MICROS~2/Bin/'
-          export PATH=$PATH:/c/PROGRA~1/MICROS~2/Bin/
+      #- name: Print Microsoft MPI Env
+      # if: startsWith(matrix.config.name, 'Windows')
+      # run: |
+      #   printenv | grep "WIN\|MSMPI"
+      #   cygpath -ms 'C:\Program Files\Microsoft MPI\Bin\'
+      #   cygpath -u 'C:/PROGRA~1/MICROS~2/Bin/'
+      #   export PATH=$PATH:/c/PROGRA~1/MICROS~2/Bin/
 
       - name: Build Bitpit
         if: startsWith(matrix.config.name, 'Windows')
