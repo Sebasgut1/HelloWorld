@@ -38,7 +38,6 @@ jobs:
             mingw-w64-x86_64-lapack
             mingw-w64-x86_64-msmpi
             mingw-w64-x86_64-libxml2
-            mingw-w64-x86_64-make
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-qt5
             mingw-w64-x86_64-doxygen
@@ -83,9 +82,9 @@ jobs:
           cd bitpit
           mkdir build
           cd build
-          cmake -G "MinGW Makefiles" -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
+          cmake -G "Visual Studio 17 2022" -A x64 -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
           echo "MAKEEEEEEEEE"
-          make -j8
+          cmake --build . --config Release
           echo "MAKEEEEEEEEE INSTALL"
-          make install -j8
+          cmake --install . --config Release
           dir ..
