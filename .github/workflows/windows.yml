@@ -65,7 +65,7 @@ jobs:
         shell: cmd
         run: |
           nuget install inteltbb.devel.win
-          cd inteltbb.devel.win.2021.7.0.9551/lib/native
+          cd inteltbb.devel.win.2021.7.0.9551/lib/native/win-x64
           dir
           echo "Finished"
         
@@ -90,7 +90,7 @@ jobs:
           cd bitpit
           mkdir build
           cd build
-          cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_Fortran_COMPILER=/d/a/_temp/msys64/mingw64/bin/gfortran.exe -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
+          cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_FC_COMPILER=/d/a/_temp/msys64/mingw64/bin/gfortran.exe -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
           echo "MAKEEEEEEEEE"
           cmake --build . --config Release
           echo "MAKEEEEEEEEE INSTALL"
