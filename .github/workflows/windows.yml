@@ -40,8 +40,6 @@ jobs:
         shell: cmd
         run: |
           nuget install inteltbb.devel.win
-          #curl -L -O https://registrationcenter-download.intel.com/akdlm/IRC_NAS/18851/w_BaseKit_p_2022.3.0.9573.exe
-          #.\w_BaseKit_p_2022.3.0.9573.exe --s
           echo "Finished"
         
           
