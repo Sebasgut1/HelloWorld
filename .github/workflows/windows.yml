@@ -22,6 +22,31 @@ jobs:
             generators: "Ninja"
           }
     steps:
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: >-
+            base-devel
+            binutils
+            python
+            git
+            make
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-lapack
+            mingw-w64-x86_64-msmpi
+            mingw-w64-x86_64-libxml2
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-qt5
+            mingw-w64-x86_64-doxygen
+            mingw-w64-x86_64-graphviz
+            mingw-w64-x86_64-rapidjson
+            mingw-w64-x86_64-msmpi
+            mingw-w64-x86_64-petsc
+            mingw-w64-x86_64-petsc-build
+            mingw-w64-x86_64-cgns
+            mingw-w64-x86_64-parmetis
+            mingw-w64-x86_64-vtk
+
       - uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NuGetAPIKey }}
@@ -65,7 +90,7 @@ jobs:
           cd bitpit
           mkdir build
           cd build
-          cmake -G "Visual Studio 17 2022" -A x64 -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
+          cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_Fortran_COMPILER=/d/a/_temp/msys64/mingw64/bin/gfortran.exe -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
           echo "MAKEEEEEEEEE"
           cmake --build . --config Release
           echo "MAKEEEEEEEEE INSTALL"
