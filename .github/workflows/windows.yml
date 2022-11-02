@@ -22,30 +22,6 @@ jobs:
             generators: "Ninja"
           }
     steps:
-      - uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          install: >-
-            base-devel
-            binutils
-            python
-            git
-            make
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-lapack
-            mingw-w64-x86_64-msmpi
-            mingw-w64-x86_64-libxml2
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-qt5
-            mingw-w64-x86_64-doxygen
-            mingw-w64-x86_64-graphviz
-            mingw-w64-x86_64-rapidjson
-            mingw-w64-x86_64-msmpi
-            mingw-w64-x86_64-petsc
-            mingw-w64-x86_64-petsc-build
-            mingw-w64-x86_64-cgns
-            mingw-w64-x86_64-parmetis
-            mingw-w64-x86_64-vtk
 
       - uses: nuget/setup-nuget@v1
         with:
@@ -62,11 +38,10 @@ jobs:
 
       - name: Install MPI on windows
         if: startsWith(matrix.config.name, 'Windows')
-        shell: cmd
+        shell: pwsh
         run: |
-          nuget install inteltbb.devel.win
-          cd inteltbb.devel.win.2021.7.0.9551/lib/native/win-x64
-          dir
+          wget "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/18851/w_BaseKit_p_2022.3.0.9573.exe" -outfile "w_BaseKit_p_2022.3.0.9573.exe"
+          Start-Process -Wait -FilePath ".\w_BaseKit_p_2022.3.0.9573.exe" -ArgumentList "/S" -PassThru
           echo "Finished"
         
           
