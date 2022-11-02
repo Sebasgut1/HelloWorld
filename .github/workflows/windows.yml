@@ -40,7 +40,9 @@ jobs:
         if: startsWith(matrix.config.name, 'Windows')
         shell: pwsh
         run: |
-          Invoke-WebRequest "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/18851/w_BaseKit_p_2022.3.0.9573.exe" -OutFile "w_BaseKit_p_2022.3.0.9573.exe" -PassThru | Select-Object -ExpandProperty Content
+          $url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/18851/w_BaseKit_p_2022.3.0.9573.exe"
+          $dest = "./"
+          Invoke-WebRequest -Uri $url -OutFile $dest
           Start-Process -Wait -FilePath ".\w_BaseKit_p_2022.3.0.9573.exe" -ArgumentList "/S" -PassThru
           echo "Finished"
         
