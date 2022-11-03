@@ -2,6 +2,7 @@ name: Windows
 
 on:
   push:
+   branches: [ "githubactions" ]
 
 jobs:
   build:
@@ -30,27 +31,28 @@ jobs:
           update: true
           install: >-
             base-devel
-            binutils
+         #   binutils
             python
-            git
-            make
+         #   git
+          #  make
             unzip
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-lapack
-            mingw-w64-x86_64-msmpi
-            mingw-w64-x86_64-libxml2
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-qt5
-            mingw-w64-x86_64-doxygen
-            mingw-w64-x86_64-graphviz
-            mingw-w64-x86_64-rapidjson
-            mingw-w64-x86_64-msmpi
-            mingw-w64-x86_64-petsc
-            mingw-w64-x86_64-petsc-build
-            mingw-w64-x86_64-cgns
-            mingw-w64-x86_64-cgal
-            mingw-w64-x86_64-parmetis
-            mingw-w64-x86_64-vtk
+          # mingw-w64-x86_64-toolchain
+          # mingw-w64-x86_64-lapack
+          # mingw-w64-x86_64-cereal
+          # mingw-w64-x86_64-msmpi
+          # mingw-w64-x86_64-libxml2
+          # mingw-w64-x86_64-cmake
+          # mingw-w64-x86_64-qt5
+          # mingw-w64-x86_64-doxygen
+          # mingw-w64-x86_64-graphviz
+          # mingw-w64-x86_64-rapidjson
+          # mingw-w64-x86_64-msmpi
+          # mingw-w64-x86_64-petsc
+          # mingw-w64-x86_64-petsc-build
+         #   mingw-w64-x86_64-cgns
+          #  mingw-w64-x86_64-cgal
+          #  mingw-w64-x86_64-parmetis
+          #  mingw-w64-x86_64-vtk
 
       - uses: actions/checkout@v3
 
@@ -58,6 +60,15 @@ jobs:
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
+
+      - name: Install Boost with Python
+        if: startsWith(matrix.config.name, 'Windows')
+        run: |
+          curl -L -O https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.zip
+          unzip boost_1_80_0.zip
+          cd boost_1_80_0
+          ./bootstrap.bat --with-python
+          b2 install link=shared --prefix="C:\Program Files\Boost-python3.8"
 
       - name: Install MPI on windows
         if: startsWith(matrix.config.name, 'Windows')
@@ -76,15 +87,6 @@ jobs:
           cygpath -ms 'C:\Program Files\Microsoft MPI\Bin\'
           cygpath -u 'C:/PROGRA~1/MICROS~2/Bin/'
           export PATH=$PATH:/c/PROGRA~1/MICROS~2/Bin/
-
-      - name: Install Boost with Python
-        if: startsWith(matrix.config.name, 'Windows')
-        run: |
-          curl -L -O https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.zip
-          unzip boost_1_80_0.zip
-          cd boost_1_80_0
-          bootstrap.bat --with-python
-          b2 install link=shared --prefix="C:\Program Files\Boost-python3.8"
 
       - name: Build Bitpit
         if: startsWith(matrix.config.name, 'Windows')
