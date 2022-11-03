@@ -31,10 +31,10 @@ jobs:
           update: true
           install: >-
             base-devel
-         #   binutils
+        #   binutils
             python
-         #   git
-          #  make
+        #   git
+        #   make
             unzip
           # mingw-w64-x86_64-toolchain
           # mingw-w64-x86_64-lapack
@@ -49,7 +49,7 @@ jobs:
           # mingw-w64-x86_64-msmpi
           # mingw-w64-x86_64-petsc
           # mingw-w64-x86_64-petsc-build
-         #   mingw-w64-x86_64-cgns
+          #   mingw-w64-x86_64-cgns
           #  mingw-w64-x86_64-cgal
           #  mingw-w64-x86_64-parmetis
           #  mingw-w64-x86_64-vtk
