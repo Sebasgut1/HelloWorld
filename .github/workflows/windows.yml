@@ -31,28 +31,8 @@ jobs:
           update: true
           install: >-
             base-devel
-        #   binutils
             python
-        #   git
-        #   make
             unzip
-          # mingw-w64-x86_64-toolchain
-          # mingw-w64-x86_64-lapack
-          # mingw-w64-x86_64-cereal
-          # mingw-w64-x86_64-msmpi
-          # mingw-w64-x86_64-libxml2
-          # mingw-w64-x86_64-cmake
-          # mingw-w64-x86_64-qt5
-          # mingw-w64-x86_64-doxygen
-          # mingw-w64-x86_64-graphviz
-          # mingw-w64-x86_64-rapidjson
-          # mingw-w64-x86_64-msmpi
-          # mingw-w64-x86_64-petsc
-          # mingw-w64-x86_64-petsc-build
-          #   mingw-w64-x86_64-cgns
-          #  mingw-w64-x86_64-cgal
-          #  mingw-w64-x86_64-parmetis
-          #  mingw-w64-x86_64-vtk
 
       - uses: actions/checkout@v3
 
