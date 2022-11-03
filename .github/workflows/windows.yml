@@ -21,50 +21,68 @@ jobs:
             archiver: "zip",
             generators: "Ninja"
           }
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
-
-      - uses: nuget/setup-nuget@v1
+      - uses: msys2/setup-msys2@v2
         with:
-          nuget-api-key: ${{ secrets.NuGetAPIKey }}
-          nuget-version: '5.x'
-      - run: git config --global core.autocrlf input
+          update: true
+          install: >-
+            base-devel
+            binutils
+            python
+            git
+            make
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-lapack
+            mingw-w64-x86_64-msmpi
+            mingw-w64-x86_64-libxml2
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-qt5
+            mingw-w64-x86_64-doxygen
+            mingw-w64-x86_64-graphviz
+            mingw-w64-x86_64-rapidjson
+            mingw-w64-x86_64-msmpi
+            mingw-w64-x86_64-petsc
+            mingw-w64-x86_64-petsc-build
+            mingw-w64-x86_64-cgns
+            mingw-w64-x86_64-parmetis
+            mingw-w64-x86_64-vtk
+
       - uses: actions/checkout@v3
-      - uses: cygwin/cygwin-install-action@master
 
       - name: Print env
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
 
-      - name: Download intel
+      - name: Install MPI on windows
         if: startsWith(matrix.config.name, 'Windows')
         shell: cmd
         run: |
-          curl -L -O https://registrationcenter-download.intel.com/akdlm/IRC_NAS/18851/w_BaseKit_p_2022.3.0.9573.exe
-        
-      - name: Install MPI on windows
-        if: startsWith(matrix.config.name, 'Windows')
-        shell: pwsh
-        run: |
-          #$url = "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/18851/w_BaseKit_p_2022.3.0.9573.exe"
-          #$dest = "./"
-          #Invoke-WebRequest -Uri $url -OutFile $dest
-          Start-Process -Wait -FilePath ".\w_BaseKit_p_2022.3.0.9573.exe" -ArgumentList "/S" -PassThru
-          echo "Finished"
-        
+          gcc -v
+          curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisetup.exe
+          curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisdk.msi
+          msmpisdk.msi /quiet
+          .\msmpisetup.exe -unattend -force
           
-      #- name: Print Microsoft MPI Env
-      # if: startsWith(matrix.config.name, 'Windows')
-      # run: |
-       #     gcc -v
-        #  curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisetup.exe
-         # curl -L -O https://download.microsoft.com/download/a/5/2/a5207ca5-1203-491a-8fb8-906fd68ae623/msmpisdk.msi
-          #msmpisdk.msi /quiet
-          #.\msmpisetup.exe -unattend -force
-      #   printenv | grep "WIN\|MSMPI"
-      #   cygpath -ms 'C:\Program Files\Microsoft MPI\Bin\'
-      #   cygpath -u 'C:/PROGRA~1/MICROS~2/Bin/'
-      #   export PATH=$PATH:/c/PROGRA~1/MICROS~2/Bin/
+      - name: Print Microsoft MPI Env
+        if: startsWith(matrix.config.name, 'Windows')
+        run: |
+          printenv | grep "WIN\|MSMPI"
+          cygpath -ms 'C:\Program Files\Microsoft MPI\Bin\'
+          cygpath -u 'C:/PROGRA~1/MICROS~2/Bin/'
+          export PATH=$PATH:/c/PROGRA~1/MICROS~2/Bin/
+
+      - name: Install Boost with Python
+      if: startsWith(matrix.config.name, 'Windows')
+      run: |
+        curl -L -O https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.zip
+        unzip boost_1_80_0.zip
+        cd boost_1_80_0
+        bootstrap.bat --with-python
+        b2 install link=shared --prefix="C:\Program Files\Boost-python3.8"
 
       - name: Build Bitpit
         if: startsWith(matrix.config.name, 'Windows')
@@ -73,7 +91,7 @@ jobs:
           cd bitpit
           mkdir build
           cd build
-          cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_FC_COMPILER=/d/a/_temp/msys64/mingw64/bin/gfortran.exe -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
+          cmake -G "MinGW Makefiles" -A x64 -DBITPIT_ENABLE_MPI=ON -DBITPIT_VERBOSE_MAKE=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../bitpit_install -DPETSC_DIR=/d/a/_temp/msys64/mingw64/src/petsc-3.17.3 -DPETSC_ARCH=dmo -DPETSC_CURRENT=ON ../
           echo "MAKEEEEEEEEE"
           cmake --build . --config Release
           echo "MAKEEEEEEEEE INSTALL"
