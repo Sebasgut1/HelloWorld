@@ -76,13 +76,13 @@ jobs:
           export PATH=$PATH:/c/PROGRA~1/MICROS~2/Bin/
 
       - name: Install Boost with Python
-      if: startsWith(matrix.config.name, 'Windows')
-      run: |
-        curl -L -O https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.zip
-        unzip boost_1_80_0.zip
-        cd boost_1_80_0
-        bootstrap.bat --with-python
-        b2 install link=shared --prefix="C:\Program Files\Boost-python3.8"
+        if: startsWith(matrix.config.name, 'Windows')
+        run: |
+          curl -L -O https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.zip
+          unzip boost_1_80_0.zip
+          cd boost_1_80_0
+          bootstrap.bat --with-python
+          b2 install link=shared --prefix="C:\Program Files\Boost-python3.8"
 
       - name: Build Bitpit
         if: startsWith(matrix.config.name, 'Windows')
