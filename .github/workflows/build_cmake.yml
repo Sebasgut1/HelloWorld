@@ -1,8 +1,13 @@
 name: CMake Build Matrix
 
 on:
-  push:
-    branches: ["a"]
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master'
+      
+
 
 jobs:
   build:
