@@ -2,8 +2,11 @@ name: CMake Build Matrix
 
 on:
   pull_request:
-  types: [opened]
-  branches: ["master"]
+    types:
+      - opened
+    branches:
+      - 'master'
+
 
 jobs:
   build:
